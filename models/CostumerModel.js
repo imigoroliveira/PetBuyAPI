@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const subscriberSchema = new mongoose.Schema({
+const costumerSchema = new mongoose.Schema({
     code: String,
     profileImage: Buffer,
     fullName: String,
@@ -12,4 +12,4 @@ const subscriberSchema = new mongoose.Schema({
     password: String
 });
 
-module.exports = mongoose.model('subscriber', subscriberSchema);
+module.exports = mongoose.model('costumer', costumerSchema);
