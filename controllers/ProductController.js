@@ -47,7 +47,7 @@ class ProductController {
     }
     
     // Endpoint para listar um produto específico por ID
-    async listProductById(req, res) {
+    async listProductByCode(req, res) {
         try {
             const product = await ProductModel.findOne({ code: req.params.code });
             if (!product) {

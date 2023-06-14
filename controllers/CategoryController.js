@@ -2,7 +2,7 @@ const CategoryModel = require('../models/CategoryModel');
 
 class CategoryController {
   // Endpoint para cadastrar uma Category
-  async cadastrarCategory(req, res) {
+  async createCategory(req, res) {
     try {
       const novaCategory = await CategoryModel.create(req.body);
       res.status(201).json(novaCategory);
@@ -12,7 +12,7 @@ class CategoryController {
   }
 
   // Endpoint para editar uma Category usando o código como parâmetro
-  async editarCategory(req, res) {
+  async editCategory(req, res) {
     try {
       const { codigo } = req.params;
       const CategoryAtualizada = await CategoryModel.findOneAndUpdate(
@@ -30,7 +30,7 @@ class CategoryController {
   }
 
   // Endpoint para retornar a lista completa de Categorys
-  async listarCategorys(req, res) {
+  async listCategory(req, res) {
     try {
       const Categorys = await CategoryModel.find();
       res.json(Categorys);
@@ -40,7 +40,7 @@ class CategoryController {
   }
 
   // Endpoint para retornar uma Category pelo código
-  async buscarCategoryPorCodigo(req, res) {
+  async listCategoryByCode(req, res) {
     try {
       const { codigo } = req.params;
       const Category = await CategoryModel.findOne({ codigo });

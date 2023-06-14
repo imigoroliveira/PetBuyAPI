@@ -1,12 +1,23 @@
 const express = require('express');
-const CategoryRoutes = require('./routes/CategoryRoutes');
-const app = express();
+const router = express.Router();
+const multer = require('multer');
+const CategoryController = require('../controllers/CategoryController');
 
-app.use(express.json());
-app.use('/api', CategoryRoutes);
 
-// Resto da configuração do servidor
-
-app.listen(3000, () => {
-  console.log('Servidor rodando na porta 3000');
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/'); 
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  }
 });
+
+const upload = multer({ storage: storage });
+
+router.post('/create', upload.single('image'), CategoryController.createCategory);
+router.get('/list', CategoryController.listCategory);
+router.get('/list/:id', CategoryController.listCategoryByCode);
+router.put('/up/:id', CategoryController.editCategory);
+
+module.exports = router;
