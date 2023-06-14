@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const URL = 'mongodb://0.0.0.0:27017/catalogo';
-const db = mongoose.connect(URL);
+
+mongoose.connect(URL, { useNewUrlParser: true, useUnifiedTopology: true });
+
 const con = mongoose.connection;
 
 con.on('open', function () {
@@ -12,7 +14,7 @@ con.on('error', function () {
 });
 
 con.on('close', function () {
-  console.log('Desconetado do MongoDB!');
+  console.log('Desconectado do MongoDB!');
 });
 
-module.exports = db;
+module.exports = con;

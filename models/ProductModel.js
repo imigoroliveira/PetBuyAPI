@@ -31,6 +31,4 @@ productSchema.virtual('averageRating').get(function () {
     return totalRating / this.comments.length;
 });
 
-const Product = mongoose.model('Product', productSchema);
-
-module.exports = Product;
+module.exports = mongoose.model('product', productSchema);

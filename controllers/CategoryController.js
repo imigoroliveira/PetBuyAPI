@@ -1,10 +1,19 @@
-const CategoryModel = require('../models/CategoryModel');
+const multer = require('multer');
+const categoryModel = require('../models/categoryModel');
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/'); 
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + '-' + file.originalname); 
+  }
+});
 
 class CategoryController {
   // Endpoint para cadastrar uma Category
   async createCategory(req, res) {
     try {
-      const novaCategory = await CategoryModel.create(req.body);
+      const novaCategory = await categoryModel.create(req.body);
       res.status(201).json(novaCategory);
     } catch (err) {
       res.status(500).json({ error: err.message });
@@ -15,7 +24,7 @@ class CategoryController {
   async editCategory(req, res) {
     try {
       const { codigo } = req.params;
-      const CategoryAtualizada = await CategoryModel.findOneAndUpdate(
+      const CategoryAtualizada = await categoryModel.findOneAndUpdate(
         { codigo },
         req.body,
         { new: true }
@@ -32,7 +41,7 @@ class CategoryController {
   // Endpoint para retornar a lista completa de Categorys
   async listCategory(req, res) {
     try {
-      const Categorys = await CategoryModel.find();
+      const Categorys = await categoryModel.find();
       res.json(Categorys);
     } catch (err) {
       res.status(500).json({ error: err.message });
@@ -43,7 +52,7 @@ class CategoryController {
   async listCategoryByCode(req, res) {
     try {
       const { codigo } = req.params;
-      const Category = await CategoryModel.findOne({ codigo });
+      const Category = await categoryModel.findOne({ codigo });
       if (!Category) {
         return res.status(404).json({ error: 'Category Not Found :(' });
       }

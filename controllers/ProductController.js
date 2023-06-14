@@ -1,5 +1,5 @@
 const multer = require('multer');
-const ProductModel = require('../models/ProductModel');
+const productModel = require('../models/productModel');
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -16,7 +16,7 @@ class ProductController {
     // Endpoint para criar um produto
     async createProduct(req, res) {
         try {
-            const newProduct = await ProductModel.create(req.body);
+            const newProduct = await productModel.create(req.body);
             res.status(201).json(newProduct);
         } catch (err) {
             res.status(500).json({ error: err.message });
@@ -26,7 +26,7 @@ class ProductController {
     // Endpoint para editar um produto usando o ID como parâmetro
     async editProduct(req, res) {
         try {
-            const updatedProduct = await ProductModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
+            const updatedProduct = await productModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
             if (!updatedProduct) {
                 return res.status(404).json({ error: 'Product not found :(' });
             }
@@ -39,7 +39,7 @@ class ProductController {
     // Endpoint para listar todos os produtos existentes
     async listAllProducts(req, res) {
         try {
-            const products = await ProductModel.find();
+            const products = await productModel.find();
             res.json(products);
         } catch (err) {
             res.status(500).json({ error: err.message });
@@ -49,7 +49,7 @@ class ProductController {
     // Endpoint para listar um produto específico por ID
     async listProductByCode(req, res) {
         try {
-            const product = await ProductModel.findOne({ code: req.params.code });
+            const product = await productModel.findOne({ code: req.params.code });
             if (!product) {
                 return res.status(404).json({ error: 'Product not found :(' });
             }

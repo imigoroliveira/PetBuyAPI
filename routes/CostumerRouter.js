@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
-const CostumerController = require('../controllers/CostumerController');
+const costumerController = require('../controllers/costumerController');
 
 
 const storage = multer.diskStorage({
@@ -15,9 +15,9 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-router.post('/create', upload.single('image'), CostumerController.createCostumer);
-router.get('/list', CostumerController.listAllCostumers);
-router.get('/list/:id', CostumerController.listCostumerById);
-router.put('/up/:id', CostumerController.editCostumer);
+router.post('/create', upload.single('image'), costumerController.createCostumer);
+router.get('/list', costumerController.listAllCostumers);
+router.get('/list/:id', costumerController.listCostumerById);
+router.put('/up/:id', costumerController.editCostumer);
 
 module.exports = router;

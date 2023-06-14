@@ -1,5 +1,5 @@
 const multer = require('multer');
-const CostumerModel = require('../models/CostumerModel');
+const costumerModel = require('../models/costumerModel');
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads/'); 
@@ -16,7 +16,7 @@ class CostumerController {
     //Endpoint to create a costumer
     async createCostumer(req, res) {
         try {
-            const nCostumer = await CostumerModel.create(req.body);
+            const nCostumer = await costumerModel.create(req.body);
             res.status(201).json(nCostumer);
         } catch (err) {
             res.status(500).json({ error: err.message });
@@ -25,7 +25,7 @@ class CostumerController {
     //Endpoint to edit costumer using Id as parameter
     async editCostumer(req, res) {
         try{
-            const upCostumer = await CostumerModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
+            const upCostumer = await costumerModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
             if (!upCostumer) {
             return res.status(404).json({ error: 'Costumer not found :(' });
             }
@@ -38,7 +38,7 @@ class CostumerController {
     //Endpoint to list all existing customers
     async listAllCostumers(req, res) {
         try {
-            const costumers = await CostumerModel.find();
+            const costumers = await costumerModel.find();
             res.json(costumers);
         } catch (err) {
             res.status(500).json({ error: err.message });
@@ -48,7 +48,7 @@ class CostumerController {
     //Endpoint to list especific customer by Id
     async listCostumerById(req, res) {
         try {
-            const costumer = await CostumerModel.findOne({ code: req.params.code });
+            const costumer = await costumerModel.findOne({ code: req.params.code });
             if (!costumer) {
               return res.status(404).json({ error: 'Costumer not found :(' });
             }
