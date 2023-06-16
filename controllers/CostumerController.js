@@ -1,5 +1,5 @@
 const multer = require('multer');
-const costumerModel = require('../models/costumerModel');
+const costumerModel = require('../models/CostumerModel');
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads/'); 
