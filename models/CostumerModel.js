@@ -12,4 +12,4 @@ const costumerSchema = new mongoose.Schema({
     password: String
 });
 
-module.exports = mongoose.model('costumer', costumerSchema);
+module.exports = mongoose.model('costumers', costumerSchema);

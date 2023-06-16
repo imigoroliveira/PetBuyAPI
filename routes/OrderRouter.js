@@ -1,10 +1,10 @@
-import { Router } from 'express';
-const router = Router();
-import { efetuarOrder, editarStatusOrder, retornarOrderPorCliente, retornarListaOrders } from '../controllers/OrderController';
+const express = require('express');
+const router = express.Router();
+const orderController = require('../controllers/OrderController');
 
-router.post('/Order', efetuarOrder);
-router.put('/Order/:codigo/status', editarStatusOrder);
-router.get('/Order/cliente/:clienteId', retornarOrderPorCliente);
-router.get('/Order', retornarListaOrders);
+router.post('/Order', orderController.efetuarOrder);
+router.put('/Order/:codigo/status', orderController.editarStatusOrder);
+router.get('/Order/cliente/:clienteId', orderController.retornarOrderPorCliente);
+router.get('/Order', orderController.retornarListaOrders);
 
-export default router;
+module.exports = router;

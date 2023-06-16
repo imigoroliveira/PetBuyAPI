@@ -1,17 +1,15 @@
 const mongoose = require('mongoose');
-const URL = 'mongodb://0.0.0.0:27017/catalogo';
+const URL = 'mongodb://0.0.0.0:27017/petbuy';
 
-mongoose.connect(URL, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(URL, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log('Conexão com o MongoDB estabelecida!');
+  })
+  .catch((error) => {
+    console.error('Erro na conexão com o MongoDB:', error);
+  });
 
 const con = mongoose.connection;
-
-con.on('open', function () {
-  console.log('Conectado ao MongoDB!');
-});
-
-con.on('error', function () {
-  console.log('Erro na conexão com o MongoDB!');
-});
 
 con.on('close', function () {
   console.log('Desconectado do MongoDB!');
