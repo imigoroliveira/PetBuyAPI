@@ -14,10 +14,19 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
-
+/**
+ * @swagger
+ * /api/Teste:
+ *   get:
+ *     summary: Descrição breve da rota
+ *     description: Descrição mais detalhada da rota
+ *     responses:
+ *       200:
+ *         description: Resposta bem-sucedida
+ */
 router.post('/create', upload.single('image'), costumerController.createCostumer);
 router.get('/list', costumerController.listAllCostumers);
-router.get('/list/:id', costumerController.listCostumerById);
+router.get('/list/:code', costumerController.listCostumerById);
 router.put('/up/:id', costumerController.editCostumer);
 
 module.exports = router;

@@ -10,57 +10,50 @@ const storage = multer.diskStorage({
 });
 
 class CategoryController {
-  // Endpoint para cadastrar uma Category
+  //Endpoint to create a category
   async createCategory(req, res) {
-    try {
-      const novaCategory = await categoryModel.create(req.body);
-      res.status(201).json(novaCategory);
-    } catch (err) {
-      res.status(500).json({ error: err.message });
-    }
+      try {
+          const nCategory = await categoryModel.create(req.body);
+          res.status(201).json(nCategory);
+      } catch (err) {
+          res.status(500).json({ error: err.message });
+      }
   }
-
-  // Endpoint para editar uma Category usando o código como parâmetro
+  //Endpoint to edit category using Id as parameter
   async editCategory(req, res) {
-    try {
-      const { codigo } = req.params;
-      const CategoryAtualizada = await categoryModel.findOneAndUpdate(
-        { codigo },
-        req.body,
-        { new: true }
-      );
-      if (!CategoryAtualizada) {
-        return res.status(404).json({ error: 'Category Not Found :(' });
+      try{
+          const upCategory = await categoryModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
+          if (!upCategory) {
+          return res.status(404).json({ error: 'Category not found :(' });
+          }
+          res.json(upCategory);
+      } catch(err){
+          res.status(500).json({ error: err.message });
       }
-      res.json(CategoryAtualizada);
-    } catch (err) {
-      res.status(500).json({ error: err.message });
-    }
   }
 
-  // Endpoint para retornar a lista completa de Categorys
-  async listCategory(req, res) {
-    try {
-      const Categorys = await categoryModel.find();
-      res.json(Categorys);
-    } catch (err) {
-      res.status(500).json({ error: err.message });
-    }
-  }
-
-  // Endpoint para retornar uma Category pelo código
-  async listCategoryByCode(req, res) {
-    try {
-      const { codigo } = req.params;
-      const Category = await categoryModel.findOne({ codigo });
-      if (!Category) {
-        return res.status(404).json({ error: 'Category Not Found :(' });
+  //Endpoint to list all existing customers
+  async listAllCategory(req, res) {
+      try {
+          const category = await categoryModel.find();
+          res.json(category);
+      } catch (err) {
+          res.status(500).json({ error: err.message });
       }
-      res.json(Category);
-    } catch (err) {
-      res.status(500).json({ error: err.message });
-    }
+  }
+  
+  //Endpoint to list especific customer by Id
+  async listCategoryById(req, res) {
+      try {
+          const category = await categoryModel.findOne({ code: req.params.code });
+          if (!category) {
+            return res.status(404).json({ error: 'Category not found :(' });
+          }
+          res.json(category);
+      } catch (err) {
+          res.status(500).json({ error: err.message });
+      }
   }
 }
-
+  
 module.exports = new CategoryController();

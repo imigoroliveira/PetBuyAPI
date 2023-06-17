@@ -17,6 +17,7 @@ class CostumerController {
     async createCostumer(req, res) {
         try {
             const nCostumer = await costumerModel.create(req.body);
+            console.log(nCostumer);
             res.status(201).json(nCostumer);
         } catch (err) {
             res.status(500).json({ error: err.message });
@@ -38,8 +39,8 @@ class CostumerController {
     //Endpoint to list all existing customers
     async listAllCostumers(req, res) {
         try {
-            const costumers = await costumerModel.find();
-            res.json(costumers);
+            const costumer = await costumerModel.find();
+            res.json(costumer);
         } catch (err) {
             res.status(500).json({ error: err.message });
         }

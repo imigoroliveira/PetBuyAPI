@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
-const categoryController = require('../controllers/categoryController');
+const categoryController = require('../controllers/CategoryController');
 
 
 const storage = multer.diskStorage({
@@ -15,9 +15,9 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-router.post('/create', upload.single('image'), categoryController.createCategory);
-router.get('/list', categoryController.listCategory);
-router.get('/list/:id', categoryController.listCategoryByCode);
+router.get('/list', categoryController.listAllCategory);
+router.get('/list/:id', categoryController.listCategoryById);
+router.post('/create', categoryController.createCategory);
 router.put('/up/:id', categoryController.editCategory);
 
 module.exports = router;
