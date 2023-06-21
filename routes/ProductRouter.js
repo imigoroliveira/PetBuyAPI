@@ -8,7 +8,7 @@ const upload = multer();
 
 router.post('/create', upload.single('image'), productController.createProduct);
 router.get('/list', productController.listAllProducts);
-router.get('/list/:id', productController.listProductByCode);
+router.get('/list/:id', productController.listProductById);
 router.put('/up/:id', productController.editProduct);
 
 module.exports = router;
