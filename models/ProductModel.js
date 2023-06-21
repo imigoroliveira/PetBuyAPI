@@ -8,7 +8,9 @@ const commentSchema = new mongoose.Schema({
 const productSchema = new mongoose.Schema({
     code: String,
     name: String,
-    image: Buffer,
+    image: {
+        type: Buffer,
+    },
     description: String,
     price: Number,
     category: {
@@ -31,4 +33,4 @@ productSchema.virtual('averageRating').get(function () {
     return totalRating / this.comments.length;
 });
 
-module.exports = mongoose.model('product', productSchema);
+module.exports = mongoose.model('products', productSchema);

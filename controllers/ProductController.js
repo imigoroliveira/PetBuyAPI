@@ -1,23 +1,16 @@
 const multer = require('multer');
 const productModel = require('../models/productModel');
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads/'); 
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + '-' + file.originalname); 
-  }
-});
-
-const upload = multer({ storage: storage });
 
 class ProductController {
     // Endpoint para criar um produto
     async createProduct(req, res) {
         try {
-            const newProduct = await productModel.create(req.body);
-            res.status(201).json(newProduct);
+            const product = req.body;
+            const image = req.file.buffer; 
+            product.image = image;
+            const resp = await productModel.create(product);
+            res.status(201).json(resp);   
         } catch (err) {
             res.status(500).json({ error: err.message });
         }
