@@ -10,8 +10,8 @@ const swaggerUi = require('swagger-ui-express'),
 swaggerDocument = require("./swagger.json");
 
 
-
-var costumerRouter = require('./routes/CostumerRouter');
+var LoginRouter = require('./routes/LoginRouter');
+var clientRouter = require('./routes/ClientRouter');
 var categoryRouter = require('./routes/CategoryRouter');
 var productRouter = require('./routes/ProductRouter');
 var orderRouter = require('./routes/OrderRouter');
@@ -36,7 +36,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors())
 
 app.use('/', indexRouter);
-app.use('/costumer', costumerRouter);
+app.use('/client', clientRouter);
+app.use('/auth', LoginRouter);
 app.use('/category', categoryRouter);
 app.use('/product', productRouter);
 app.use('/order', orderRouter);

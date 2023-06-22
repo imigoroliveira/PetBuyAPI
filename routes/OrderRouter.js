@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const orderController = require('../controllers/OrderController');
+const auth = require('../auth/auth');
 
-router.post('/Order', orderController.efetuarOrder);
-router.put('/Order/:codigo/status', orderController.editarStatusOrder);
-router.get('/Order/cliente/:clienteId', orderController.retornarOrderPorCliente);
-router.get('/Order', orderController.retornarListaOrders);
+router.use(auth.autorizar);
+router.post('/order', orderController.efetuarOrder);
+router.put('/order/:codigo/status', orderController.editarStatusOrder);
+router.get('/order/cliente/:clienteId', orderController.retornarOrderPorCliente);
+router.get('/order', orderController.retornarListaOrders);
 
 module.exports = router;

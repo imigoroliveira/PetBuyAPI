@@ -1,5 +1,4 @@
-const multer = require('multer');
-const productModel = require('../models/productModel');
+const productModel = require('../models/ProductModel');
 
 
 class ProductController {
