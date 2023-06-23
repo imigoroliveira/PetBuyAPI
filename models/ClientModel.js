@@ -10,7 +10,9 @@ const clientSchema = new mongoose.Schema({
     address: String,
     tel: String,
     cpf: String,
+    creditCardName: String,
     creditCardNumber: String,
+    creditCardCvc: String,
     email: {
         type: String,
         unique: true,

@@ -5,7 +5,7 @@ const auth = require('../auth/auth');
 
 
 class ClientController {
-    //Endpoint to create a client
+
     async createClient(req, res) {
         try {
             const client = req.body;
