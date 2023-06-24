@@ -1,16 +1,11 @@
 const OrderModel = require('../models/OrderModel');
 
 class OrderController {
-  async efetuarOrder(req, res) {
+  async createOrder(req, res) {
     try {
-      const { codigo, precoTotal, produtos, cliente } = req.body;
-      const novoOrder = await OrderModel.create({
-        codigo,
-        precoTotal,
-        produtos,
-        cliente,
-      });
-      res.status(201).json(novoOrder);
+      const orderData = req.body;
+      const newOrder = await OrderModel.create(orderData);
+      res.status(201).json(newOrder);
     } catch (err) {
       res.status(500).json({ error: err.message });
     }

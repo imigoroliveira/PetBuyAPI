@@ -4,7 +4,7 @@ const orderController = require('../controllers/OrderController');
 const auth = require('../auth/auth');
 
 router.use(auth.autorizar);
-router.post('/order/create', orderController.efetuarOrder);
+router.post('/create', orderController.createOrder);
 router.put('/order/:codigo/status', orderController.editarStatusOrder);
 router.get('/order/cliente/:clienteId', orderController.retornarOrderPorCliente);
 router.get('/order', orderController.retornarListaOrders);
