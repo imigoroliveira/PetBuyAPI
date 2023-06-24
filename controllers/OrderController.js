@@ -1,4 +1,6 @@
 const OrderModel = require('../models/OrderModel');
+const nodemailer = require('nodemailer');
+
 
 class OrderController {
   async createOrder(req, res) {
@@ -48,19 +50,33 @@ class OrderController {
     }
   }
 
-  async sendEmail(req, res) {
+  async sendEmail(email, subject, message) {
     try {
-      const { email, subject, message } = req.body;
-
-      await sendEmail(email, subject, message);
-
-      res.json({ message: 'E-mail enviado com sucesso!' });
-    } catch (err) {
-      res.status(500).json({ error: err.message });
+      const transporter = nodemailer.createTransport({
+        service: 'Gmail',
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
+        auth: {
+          user: 'petbuy016@gmail.com',
+          pass: 'PetBuy@2023!', 
+        },
+      });
+  
+      const mailOptions = {
+        from: 'petbuy016@gmail.com', // Insira o seu endereço de e-mail do Gmail
+        to: email,
+        subject: subject,
+        text: message,
+      };
+  
+      await transporter.sendMail(mailOptions);
+      console.log('E-mail enviado com sucesso!');
+    } catch (error) {
+      console.error('Erro ao enviar o e-mail:', error);
     }
+
   }
-
-
 }
 
 module.exports = new OrderController();
