@@ -6,21 +6,21 @@ const OrderSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  precoTotal: {
+  totalPrice: {
     type: Number,
     required: true,
   },
-  produtos: [{
-    produto: {
+  products: [{
+    product: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Produto',
     },
-    quantidade: {
+    quantity: {
       type: Number,
       required: true,
     },
   }],
-  cliente: {
+  client: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Cliente',
     required: true,
@@ -33,6 +33,26 @@ const OrderSchema = new mongoose.Schema({
     type: String,
     enum: ['Aguardando Pagamento', 'Faturado', 'Enviado', 'Cancelado'],
     default: 'Aguardando Pagamento',
+  },
+  creditCardName: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  creditCardNumber: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  creditCardCvc: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  address: {
+    type: String,
+    required: true,
+    unique: true,
   },
 });
 

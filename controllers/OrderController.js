@@ -52,6 +52,20 @@ class OrderController {
       res.status(500).json({ error: err.message });
     }
   }
+
+  async sendEmail(req, res) {
+    try {
+      const { email, subject, message } = req.body;
+
+      await sendEmail(email, subject, message);
+
+      res.json({ message: 'E-mail enviado com sucesso!' });
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  }
+
+
 }
 
 module.exports = new OrderController();

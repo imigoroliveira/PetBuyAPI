@@ -8,5 +8,6 @@ router.post('/order/create', orderController.efetuarOrder);
 router.put('/order/:codigo/status', orderController.editarStatusOrder);
 router.get('/order/cliente/:clienteId', orderController.retornarOrderPorCliente);
 router.get('/order', orderController.retornarListaOrders);
+router.post('/order/sendEmail', orderController.sendEmail);
 
 module.exports = router;
