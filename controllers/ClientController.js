@@ -51,7 +51,7 @@ class ClientController {
             res.status(500).json({ error: err.message });
         }
     }
-    
+
    // Endpoint para listar um client específico por ID
    async listClientById(req, res) {
     try {

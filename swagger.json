@@ -1,156 +1,572 @@
 {
-    "swagger": "2.0",
-    "info": {
-      "title": "PetBuy Backend",
-      "description": "API PetBuy",
-      "version": "1.0"
+  "swagger": "2.0",
+  "info": {
+    "title": "PetBuy Backend",
+    "description": "API PetBuy",
+    "version": "1.0"
+  },
+  "host": "localhost:3001",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "tags": [
+    {
+      "name": "Clientes",
+      "description": "Operações relacionadas a usuários"
     },
-    "host": "localhost:3001",
-    "basePath": "/",
-    "schemes": [
-      "http"
-    ],
-    "tags": [
-      {
-        "name": "Usuários",
-        "description": "Operações relacionadas a usuários"
-      },
-      {
-        "name": "Produtos",
-        "description": "Operações relacionadas a produtos"
+    {
+      "name": "Produtos",
+      "description": "Operações relacionadas a produtos"
+    },
+    {
+      "name": "Pedidos",
+      "description": "Operações relacionadas a produtos"
+    },
+    {
+      "name": "Categorias",
+      "description": "Operações relacionadas a produtos"
+    }
+  ],
+  "paths": {
+    "/client/create": {
+      "post": {
+        "tags": [
+          "Clientes"
+        ],
+        "summary": "Cria um usuario",
+        "description": "Cria um usuario no banco de dados",
+        "responses": {
+          "200": {
+            "description": "Cria um usuario",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Clientes"
+              }
+            }
+          },
+          "201": {
+            "description": "Cliente cadastrado"
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          },
+          "400": {
+            "description": "Cliente ja cadastrado"
+          }
+        }
       }
-    ],
-    "paths": {  
-      "/users": {
-        "get": {
-          "tags": ["Usuários"],
-          "summary": "Obter lista de usuários",
-          "description": "Retorna uma lista de usuários registrados no sistema",
-          "responses": {
-            "200": {
-              "description": "Lista de usuários",
-              "schema": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/User"
-                }
+    },
+    "/client/list": {
+      "get": {
+        "tags": [
+          "Clientes"
+        ],
+        "summary": "Obter lista de usuários",
+        "description": "Retorna uma lista de todos os usuários registrados no sistema",
+        "responses": {
+          "200": {
+            "description": "Lista de usuários",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Clientes"
               }
-            },
-            "500": {
-              "description": "Erro interno do servidor"
             }
+          },
+          "500": {
+            "description": "Erro interno do servidor"
           }
         }
-      },
-      "/users/{id}": {
-        "get": {
-          "tags": ["Usuários"],
-          "summary": "Obter detalhes do usuário",
-          "description": "Retorna os detalhes de um usuário específico",
-          "parameters": [
-            {
-              "name": "id",
-              "in": "path",
-              "description": "ID do usuário",
-              "required": true,
-              "type": "string"
+      }
+    },
+    "/client/up/:id": {
+      "put": {
+        "tags": [
+          "Clientes"
+        ],
+        "summary": "Atualizar dados do Cliente",
+        "description": "Atualiza os dados de um Cliente",
+        "responses": {
+          "200": {
+            "description": "Atualiza um Cliente",
+            "schema": {
+              "$ref": "#/definitions/User"
             }
-          ],
-          "responses": {
-            "200": {
-              "description": "Detalhes do usuário",
-              "schema": {
-                "$ref": "#/definitions/User"
-              }
-            },
-            "404": {
-              "description": "Usuário não encontrado"
-            },
-            "500": {
-              "description": "Erro interno do servidor"
-            }
+          },
+          "404": {
+            "description": "Cliete não encontrado"
+          },
+          "500": {
+            "description": "Erro interno do servidor"
           }
         }
-      },
-      "/products": {
-        "get": {
-          "tags": ["Produtos"],
-          "summary": "Obter lista de produtos",
-          "description": "Retorna uma lista de produtos disponíveis",
-          "responses": {
-            "200": {
-              "description": "Lista de produtos",
-              "schema": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/Product"
-                }
-              }
-            },
-            "500": {
-              "description": "Erro interno do servidor"
+      }
+    },
+    "/client/list/:{id}": {
+      "get": {
+        "tags": [
+          "Clientes"
+        ],
+        "summary": "Lista Clientes por ID",
+        "description": "Retorna os detalhes de um Cliente específico",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID do usuário",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Detalhes do usuário",
+            "schema": {
+              "$ref": "#/definitions/User"
             }
+          },
+          "404": {
+            "description": "Usuário não encontrado"
+          },
+          "500": {
+            "description": "Erro interno do servidor"
           }
         }
-      },
-      "/products/list": {
-        "get": {
-          "tags": ["Produtos"],
-          "summary": "Obter lista de produtos",
-          "description": "Retorna uma lista de produtos disponíveis",
-          "responses": {
-            "200": {
-              "description": "Lista de produtos",
-              "schema": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/Product"
-                }
+      }
+    },
+    "/products/create": {
+      "post": {
+        "tags": [
+          "Produtos"
+        ],
+        "summary": "Obter lista de produtos",
+        "description": "Retorna uma lista de produtos disponíveis",
+        "responses": {
+          "200": {
+            "description": "Lista de produtos",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Product"
               }
-            },
-            "500": {
-              "description": "Erro interno do servidor"
             }
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          }
+        }
+      }
+    },
+    "/products/list": {
+      "get": {
+        "tags": [
+          "Produtos"
+        ],
+        "summary": "Obter lista de produtos",
+        "description": "Retorna uma lista de produtos disponíveis",
+        "responses": {
+          "200": {
+            "description": "Lista de produtos",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Product"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          }
+        }
+      }
+    },
+    "/products/list/:id": {
+      "get": {
+        "tags": [
+          "Produtos"
+        ],
+        "summary": "Obter lista de produto por ID",
+        "description": "Retorna uma lista de produtos disponíveis por ID",
+        "responses": {
+          "200": {
+            "description": "lista um produto específico por ID",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Product"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          },
+          "404": {
+            "description": "Produto não encontrado :("
+          }
+        }
+      }
+    },
+    "/products/up/:id": {
+      "put": {
+        "tags": [
+          "Produtos"
+        ],
+        "summary": "Editar um produto usando o ID como parâmetro",
+        "description": "Editar um produto usando o ID como parâmetro",
+        "responses": {
+          "200": {
+            "description": "Editar um produto usando o ID como parâmetro",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Produtos"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          },
+          "404": {
+            "description": "Produto não encontrado :("
+          }
+        }
+      }
+    },
+    "/category/create": {
+      "post": {
+        "tags": [
+          "Categorias"
+        ],
+        "summary": "Obter lista de categorias",
+        "description": "Retorna uma lista de Categorias disponíveis",
+        "responses": {
+          "200": {
+            "description": "Lista de Categorias",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Categorias"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          }
+        }
+      }
+    },
+    "/category/list": {
+      "get": {
+        "tags": [
+          "Categorias"
+        ],
+        "summary": "Obter lista de Categoria",
+        "description": "Retorna uma lista de Categoria disponíveis",
+        "responses": {
+          "200": {
+            "description": "Lista de Categoria",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Categoria"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          }
+        }
+      }
+    },
+    "/category/list/:id": {
+      "get": {
+        "tags": [
+          "Categorias"
+        ],
+        "summary": "Obter lista de Categoria por ID",
+        "description": "Retorna uma lista de Categoria disponíveis por ID",
+        "responses": {
+          "200": {
+            "description": "lista uma Categoria específico por ID",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Categoria"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          },
+          "404": {
+            "description": "Categoria não encontrada :("
+          }
+        }
+      }
+    },
+    "/category/up/:id": {
+      "pit": {
+        "tags": [
+          "Categorias"
+        ],
+        "summary": "Editar um Categoria usando o ID como parâmetro",
+        "description": "Editar um Categoria usando o ID como parâmetro",
+        "responses": {
+          "200": {
+            "description": "Editar um Categoria usando o ID como parâmetro",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Categoria"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          },
+          "404": {
+            "description": "Produto não encontrado :("
+          }
+        }
+      }
+    },
+    "/order/create": {
+      "post": {
+        "tags": [
+          "Pedidos"
+        ],
+        "summary": "Cria um Pedido",
+        "description": "Efetua a criação do pedido",
+        "responses": {
+          "200": {
+            "description": "Criação um Pedido",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Pedidos"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          },
+          "201": {
+            "description": "Pedido criado com sucesso"
+          }
+        }
+      }
+    },
+    "/order/:code/status": {
+      "put": {
+        "tags": [
+          "Pedidos"
+        ],
+        "summary": "Editar um pedido",
+        "description": "Edita um pedido existente",
+        "responses": {
+          "200": {
+            "description": "Realiza a edição um pedido existente",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Pedidos"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          },
+          "404": {
+            "description": "Pedido não encontrado"
+          }
+        }
+      }
+    },
+    "/order/client/:clientId": {
+      "get": {
+        "tags": [
+          "Pedidos"
+        ],
+        "summary": "Obter lista de Pedidos por Cliente",
+        "description": "Retorna uma lista de Pedidos por Cliente",
+        "responses": {
+          "200": {
+            "description": "Lista Pedidos por Cliente",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Pedido"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          }
+        }
+      }
+    },
+    "/order/list": {
+      "get": {
+        "tags": [
+          "Pedidos"
+        ],
+        "summary": "Obter lista de Pedidos",
+        "description": "Retorna uma de Pedidos",
+        "responses": {
+          "200": {
+            "description": "lista os Pedidos",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Pedidos"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno do servidor"
           }
         }
       }
     },
     "definitions": {
-      "User": {
+      "Clientes": {
         "type": "object",
         "properties": {
-          "id": {
+          "Code": {
             "type": "integer",
             "format": "int64",
             "description": "ID do usuário"
           },
-          "name": {
+          "profileImage": {
+            "type": "Buffer",
+            "description": "Imagem de perfil do usuário"
+          },
+          "fullName": {
             "type": "string",
-            "description": "Nome do usuário"
+            "description": "Nome completo do usuário"
+          },
+          "address": {
+            "type": "string",
+            "description": "Endereço do usuário"
+          },
+          "Tel": {
+            "type": "string",
+            "description": "Telefone do usuário"
+          },
+          "cpf": {
+            "type": "string",
+            "description": "Cpf do usuário"
+          },
+          "creditCardName": {
+            "type": "string",
+            "description": "Nome do cartão de credito do usuário"
+          },
+          "creditCardNumber": {
+            "type": "string",
+            "description": "Numero do cartão de credito do usuário"
+          },
+          "creditCardCvc": {
+            "type": "string",
+            "description": "CVC do cartão de credito do usuário"
           },
           "email": {
             "type": "string",
             "description": "E-mail do usuário"
+          },
+          "password": {
+            "type": "string",
+            "description": "Senha do usuário"
+          },
+          "token": {
+            "type": "string",
+            "description": "Token de acesso do usuário"
           }
         }
       },
-      "Product": {
+      "Produtos": {
         "type": "object",
         "properties": {
-          "id": {
+          "code": {
             "type": "integer",
             "format": "int64",
-            "description": "ID do usuário"
+            "description": "Codigo do produto"
           },
           "name": {
             "type": "string",
-            "description": "Nome do usuário"
+            "description": "Nome do produto"
           },
-          "email": {
+          "image": {
+            "type": "buffer",
+            "description": "Imagem do produto"
+          },
+          "description": {
             "type": "string",
-            "description": "E-mail do usuário"
+            "description": "Descrição do produto"
+          },
+          "price": {
+            "type": "Number",
+            "description": "Preço do produto"
+          },
+          "animal": {
+            "type": "string",
+            "description": "Ver com o Igor"
+          }
+        }
+      },
+      "Categorias": {
+        "type": "object",
+        "properties": {
+          "codigo": {
+            "type": "String",
+            "format": "int64",
+            "description": "Codigo da categoria"
+          },
+          "name": {
+            "type": "string",
+            "description": "Nome da categoria"
+          },
+          "description": {
+            "type": "string",
+            "description": "Descrição da categoria"
+          }
+        }
+      },
+      "Pedidos": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "String",
+            "format": "int64",
+            "description": "Codigo da categoria"
+          },
+          "products": {
+            "type": "mongoose.Schema.Types.ObjectId",
+            "description": "Nome dos produtos"
+          },
+          "totalPrice": {
+            "type": "number",
+            "description": "Preço total"
+          },
+          "quantity": {
+            "type": "Number",
+            "description": "Quantidade total"
+          },
+          "Client": {
+            "type": "mongoose.Schema.Types.ObjectId",
+            "description": "Nome do Cliente"
+          },
+          "dateOrder": {
+            "type": "date",
+            "description": "Data de criação do pedido"
+          },
+          "status": {
+            "type": "string",
+            "description": "Status do pedido"
           }
         }
       }
     }
   }
+}
